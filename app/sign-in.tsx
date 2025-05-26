@@ -6,12 +6,15 @@ import icons from '@/constants/icons'
 import { Redirect, router } from "expo-router";
 import { useAuth } from './context/AuthContext'
 import CustomKeyboardView from '@/components/CustomKeyboardView'
+import LottieView from 'lottie-react-native';
+import Loading from '@/components/Loading'
 
 
 const SignIn = () => {
-  const { session, signin } = useAuth();
+  const { session, signin, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 
 
   const handleLogin = async () => {
@@ -33,6 +36,7 @@ const SignIn = () => {
                             placeholder="Enter your email..."
                             value={email}
                             onChangeText={(text) => setEmail(text)}
+                            className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
                         />
                   
                     {/* </KeyboardAvoidingView> */}
@@ -43,15 +47,24 @@ const SignIn = () => {
                         value={password}
                         onChangeText={(text) => setPassword(text)}
                         secureTextEntry
+                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
                     />
                    
               </View>
-              <TouchableOpacity onPress={handleLogin} className='bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5'>
-                  <View className='flex flex-row items-center justify-center w-full'>
-                    {/* <Image source={icons.google} className='w-5 h-5' resizeMode='contain'/> */}
-                    <Text className='text-lg font-rubik-medium text-white'>Sign In</Text>
+              {
+                loading ? (
+                  <View className='flex justify-center items-center mt-5'>
+                    <Loading size={24}/>
                   </View>
-              </TouchableOpacity>
+                ) : (
+
+                  <TouchableOpacity onPress={handleLogin} className='bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5'>
+                      <View className='flex flex-row items-center justify-center w-full'>
+                        <Text className='text-lg font-rubik-medium text-white'>Sign In</Text>
+                      </View>
+                  </TouchableOpacity>
+                )
+              }
           </View>
       </CustomKeyboardView>
   )

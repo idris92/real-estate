@@ -45,7 +45,7 @@ const Profile = () => {
                     <TouchableOpacity className='absolute bottom-11 right-2'>
                         <Image source={icons.edit} className='size-9'/>
                     </TouchableOpacity>
-                    <Text className='text-2xl mt-2 font-rubik-bold'> {user.name}</Text>
+                    <Text className='text-2xl mt-2 font-rubik-bold'> {user?.name}</Text>
                 </View>
             </View>
             <View className='flex flex-col mt-10 border-t pt-5 border-primary-200'>

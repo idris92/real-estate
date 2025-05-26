@@ -54,19 +54,13 @@ const AuthProvider = ({children}) => {
         setLoading(false);
     };
 
-    const contextData = { session, user, signin, signout };
+    const contextData = { session, user, signin, signout, loading };
 
   return (
      <AuthContext.Provider value={contextData}>
-            {loading ? (
-                <SafeAreaView className='flex justify-center items-center'>
-                        <Loading/>
-                    {/* <Text>Loading...</Text> */}
-                </SafeAreaView>
-            ) : (
+            {
                 children
-                
-            )}
+            }
     </AuthContext.Provider>
   )
 }

@@ -1,10 +1,16 @@
 import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
+import LottieView from 'lottie-react-native'
 
-const Loading = () => {
+interface props{
+  size: number;
+}
+
+const Loading = ({size}:props) => {
   return (
-    <View className='flex w-full h-full items-center justify-center'>
-       <ActivityIndicator size='large' color='#000'/>
+    <View className={` flex justify-center items-center bg-red ${size}`}>
+       {/* <LottieView source={require('../assets/images/loading.json')} autoPlay loop /> */}
+       <ActivityIndicator size={size}/>
     </View>
   )
 }
