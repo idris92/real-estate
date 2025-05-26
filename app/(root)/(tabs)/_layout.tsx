@@ -15,9 +15,12 @@ const TabIcon=({focused, icon, title}:{focused:boolean, icon:any, title:string})
 )
 
 const TabsLayout = () => {
-  const {session} = useAuth()
-  return !session ? <Redirect  href="/sign-in"/> : 
-  (
+  // const {session} = useAuth()
+  // return !session ? <Redirect  href="/sign-in"/> : 
+  // (
+    
+  // )
+  return (
     <Tabs 
     screenOptions={{
         tabBarShowLabel: false,

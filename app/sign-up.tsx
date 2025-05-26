@@ -1,27 +1,21 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, Alert, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import images from '@/constants/images'
-import icons from '@/constants/icons'
-import { Redirect, router } from "expo-router";
-import { useAuth } from './context/AuthContext'
 import CustomKeyboardView from '@/components/CustomKeyboardView'
-import LottieView from 'lottie-react-native';
+import images from '@/constants/images'
+import { useAuth } from './context/oauthContext'
 import Loading from '@/components/Loading'
+import { router } from 'expo-router'
 
+const SignUp = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState('')
+    const [profileUrl, setProfileUrl] = useState('')
+    const  [loading, setLoading] = useState(false)
 
-const SignIn = () => {
-  // const { session, signin, loading } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false)
+    const handleRegister=()=>{
 
-
-
-  const handleLogin = async () => {
-    // signin({email, password})
-  };
-  // if (session) return <Redirect href="/" />;
+    }
   return (
     <CustomKeyboardView>
           <Image source={images.onboarding} className='w-full h-[420px]' resizeMode='cover' />
@@ -50,6 +44,22 @@ const SignIn = () => {
                         secureTextEntry
                         className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
                     />
+
+                    <Text className='font-medium font-rubik-medium text-base text-black-300'>Username:</Text>
+                    <TextInput
+                        placeholder="Username"
+                        value={username}
+                        onChangeText={(text) => setUsername(text)}
+                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
+                    />
+
+                    <Text className='font-medium font-rubik-medium text-base text-black-300'>ProfileUrl:</Text>
+                    <TextInput
+                        placeholder="Profile image url"
+                        value={profileUrl}
+                        onChangeText={(text) => setProfileUrl(text)}
+                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
+                    />
                    
               </View>
               {
@@ -59,19 +69,19 @@ const SignIn = () => {
                   </View>
                 ) : (
 
-                  <TouchableOpacity onPress={handleLogin} className='bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5'>
+                  <TouchableOpacity onPress={handleRegister} className='bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5'>
                       <View className='flex flex-row items-center justify-center w-full'>
-                        <Text className='text-lg font-rubik-medium text-white'>Sign In</Text>
+                        <Text className='text-lg font-rubik-medium text-white'>Sign Up</Text>
                       </View>
                   </TouchableOpacity>
                 )
               }
-                <TouchableOpacity onPress={()=> router.push('/sign-up')} className='flex w-full items-center justify-center flex-row mt-5'>
-                          <Text className='text-md font-rubik-base text-black-200'>Dont have an account? Sign up</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity onPress={()=> router.push('/sign-in')} className='flex w-full items-center justify-center flex-row mt-5'>
+                        <Text className='text-md font-rubik-base text-black-200'>Already have an account? Sign in</Text>
+                </TouchableOpacity>
           </View>
       </CustomKeyboardView>
   )
 }
 
-export default SignIn
+export default SignUp

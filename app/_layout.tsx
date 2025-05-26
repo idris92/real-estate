@@ -1,8 +1,32 @@
-import { SplashScreen, Stack } from "expo-router";
+import { router, SplashScreen, Stack, useSegments } from "expo-router";
 import "./globals.css"
 import {useFonts} from 'expo-font'
 import { useEffect } from "react";
-import { AuthProvider } from "./context/AuthContext";
+import {useAuth} from "./context/oauthContext"
+import { OauthContextProvider } from "./context/oauthContext";
+
+
+
+const Mainlayout = ()=>{
+  const {isAuthenticated} = useAuth()
+  const segments = useSegments()
+
+  useEffect(() => {
+    if(typeof isAuthenticated == 'undefined')return;
+    const inApp = segments[0]=='(root)'
+
+    if(isAuthenticated && !inApp){
+      //redirect to home
+      router.replace('/(root)/(tabs)')
+    }else if(isAuthenticated == false){
+      //redirect to login page
+      router.replace('/sign-in')
+    }
+  }, [isAuthenticated])
+  
+    return <Stack screenOptions={{headerShown:false}} />
+}
+
 
 export default function RootLayout() {
 
@@ -26,9 +50,9 @@ export default function RootLayout() {
   }
   
   return (
-    <AuthProvider>
-      <Stack screenOptions={{headerShown:false}} />
-    </AuthProvider>
+    <OauthContextProvider>
+        <Mainlayout/>
+    </OauthContextProvider>
   )
     
 }

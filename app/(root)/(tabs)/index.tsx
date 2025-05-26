@@ -9,7 +9,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-  const {user} = useAuth()
+  // const {user} = useAuth()
    const {id} = useLocalSearchParams()
     const handleDetails=()=>{
       router.push('/properties/1')
@@ -36,7 +36,7 @@ export default function Index() {
                     <Image source={images.avatar} className="size-12 rounded-full"/>
                     <View className="flex flex-col items-start ml-2 justify-center">
                         <Text className="text-xs font-rubik text-black-100">Good Morning</Text>
-                        <Text className="text-base font-rubik-medium text-black-300">{user?.name}</Text>
+                        <Text className="text-base font-rubik-medium text-black-300">Dragovic</Text>
                     </View>
                 </View>
                 <Image source={icons.bell} className="size-6"/>

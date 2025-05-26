@@ -28,9 +28,8 @@ const SettingsItem=({icon, title, onPress, textStyle, showArrow=true }:SettingsI
 )
 
 const Profile = () => {
-  const {signout, user} = useAuth()
   const handleLogout=()=>{
-    signout()
+    // signout()
   }
   return (
     <SafeAreaView className='h-full bg-white pt-5'>
@@ -45,7 +44,7 @@ const Profile = () => {
                     <TouchableOpacity className='absolute bottom-11 right-2'>
                         <Image source={icons.edit} className='size-9'/>
                     </TouchableOpacity>
-                    <Text className='text-2xl mt-2 font-rubik-bold'> {user?.name}</Text>
+                    <Text className='text-2xl mt-2 font-rubik-bold'> Dragovic</Text>
                 </View>
             </View>
             <View className='flex flex-col mt-10 border-t pt-5 border-primary-200'>
