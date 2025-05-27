@@ -23,7 +23,6 @@ const SignUp = () => {
         }else{
             setLoading(true)
             let response = await register(email, password, username, profileUrl)
-            console.log('response', response)
 
             if(!response.success){
                 Alert.alert('Signup Error', response.msg)

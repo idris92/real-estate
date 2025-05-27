@@ -11,7 +11,6 @@ const Mainlayout = ()=>{
   const segments = useSegments()
 
   useEffect(() => {
-    if(typeof isAuthenticated == 'undefined')router.replace('/sign-in');
     const inApp = segments[0]==='(root)'
 
     if(isAuthenticated && !inApp){

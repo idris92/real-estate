@@ -38,24 +38,14 @@ export const OauthContextProvider =({children})=>{
 
     const login = async(email, password)=>{
         try {
-            await signInWithEmailAndPassword(auth, email, password).then((res)=>{
-                return {success:true}
-            }).catch((error)=>{
-                let msg = error.message 
-                if(msg.includes('(auth/invalid-credential)')) msg='Invalid credentials'
-                if(msg.includes('(auth/too-many-requests)')) msg='Too many requests'
-                if(msg.includes('(auth/invalid-email)')) msg='Invalid email address'
-                if(msg.includes('(auth/network-request-failed)')) msg='Oops something went wrong, retry'
-                return {success:false, msg}
-            })
-        
-            
+            const response = await signInWithEmailAndPassword(auth, email, password)
         } catch (error) {
             let msg = error.message
             if(msg.includes('(auth/invalid-email)')) msg='Invalid email address'
             if(msg.includes('(auth/invalid-credential)')) msg='Invalid credentials'
+            if(msg.includes('(auth/too-many-requests)')) msg='Too many requests'
             if(msg.includes('(auth/network-request-failed)')) msg='Oops something went wrong, retry'
-            return {success:false, error}
+            return {success:false, msg}
         }
     }
 

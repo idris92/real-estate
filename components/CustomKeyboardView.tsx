@@ -1,6 +1,5 @@
-import { View, Text, Platform, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { Platform, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React from 'react'
-import { useHeaderHeight } from '@react-navigation/elements';
 
 
 const CustomKeyboardView = ({children}:any) => {
@@ -11,7 +10,6 @@ const CustomKeyboardView = ({children}:any) => {
     className='flex flex-1 bg-white '
     >
       <ScrollView
-      // className='flex flex-1 pb-12 '
       bounces={false}
       showsVerticalScrollIndicator={false}
       contentContainerClassName='pb-10'
