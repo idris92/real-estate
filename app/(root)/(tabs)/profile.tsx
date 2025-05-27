@@ -3,8 +3,7 @@ import React from 'react'
 import icons from '@/constants/icons'
 import images from '@/constants/images'
 import { settings } from '@/constants/data';
-import { router } from 'expo-router';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/context/oauthContext';
 
 
 interface SettingsItemProps{
@@ -28,8 +27,9 @@ const SettingsItem=({icon, title, onPress, textStyle, showArrow=true }:SettingsI
 )
 
 const Profile = () => {
-  const handleLogout=()=>{
-    // signout()
+  const {logout, user} = useAuth()
+  const handleLogout=async ()=>{
+    await logout()
   }
   return (
     <SafeAreaView className='h-full bg-white pt-5'>
@@ -40,11 +40,11 @@ const Profile = () => {
             </View>
             <View className='flex-row mt-5 flex justify-center'>
                 <View className='flex flex-col mt-5 relative items-center'>
-                    <Image source={images.avatar} className='size-44 relative rounded-full'/>
+                    <Image source={{uri: user?.profileUrl}} className='size-44 relative rounded-full'/>
                     <TouchableOpacity className='absolute bottom-11 right-2'>
                         <Image source={icons.edit} className='size-9'/>
                     </TouchableOpacity>
-                    <Text className='text-2xl mt-2 font-rubik-bold'> Dragovic</Text>
+                    <Text className='text-2xl mt-2 font-rubik-bold'>{user?.username}</Text>
                 </View>
             </View>
             <View className='flex flex-col mt-10 border-t pt-5 border-primary-200'>

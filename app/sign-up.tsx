@@ -1,20 +1,35 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomKeyboardView from '@/components/CustomKeyboardView'
 import images from '@/constants/images'
 import { useAuth } from './context/oauthContext'
 import Loading from '@/components/Loading'
 import { router } from 'expo-router'
+import InputComponent from '@/components/InputComponent'
 
 const SignUp = () => {
+    const {register} = useAuth()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState('')
     const [profileUrl, setProfileUrl] = useState('')
     const  [loading, setLoading] = useState(false)
+    
 
-    const handleRegister=()=>{
+    const handleRegister=async()=>{
+        if (!email || !password || !username || !profileUrl){
+            Alert.alert('Error', 'Please fill all missing fields')
+            return
+        }else{
+            setLoading(true)
+            let response = await register(email, password, username, profileUrl)
+            console.log('response', response)
 
+            if(!response.success){
+                Alert.alert('Signup Error', response.msg)
+                setLoading(false)
+            }
+        }
     }
   return (
     <CustomKeyboardView>
@@ -22,45 +37,13 @@ const SignUp = () => {
           <View className='px-10 mt-5'>
               <Text className='text-center uppercase font-rubik text-black-200'>Welcome to real estate</Text>
               <Text className='text-3xl font-rubik-bold text-center text-black-300 mt-2'>Let Get You Closer To {"\n"} <Text className='text-primary-300'>Your Ideal Home</Text></Text>
-              {/* <Text className='text-center text-lg font-rubik text-black-200 mt-12'>Login to real estate with google</Text> */}
               <View className='w-full flex flex-col gap-5 mt-5'>
-        
-                  <Text className='font-medium font-rubik-medium text-base text-black-300'>Email:</Text>
-                {/* <KeyboardAvoidingView behavior={Platform.OS==='ios'?'padding': 'height'}>  */}
-                      <TextInput
-                            placeholder="Enter your email..."
-                            value={email}
-                            onChangeText={(text) => setEmail(text)}
-                            className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
-                        />
-                  
-                    {/* </KeyboardAvoidingView> */}
 
-                    <Text className='font-medium font-rubik-medium text-base text-black-300'>Password:</Text>
-                    <TextInput
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={(text) => setPassword(text)}
-                        secureTextEntry
-                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
-                    />
-
-                    <Text className='font-medium font-rubik-medium text-base text-black-300'>Username:</Text>
-                    <TextInput
-                        placeholder="Username"
-                        value={username}
-                        onChangeText={(text) => setUsername(text)}
-                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
-                    />
-
-                    <Text className='font-medium font-rubik-medium text-base text-black-300'>ProfileUrl:</Text>
-                    <TextInput
-                        placeholder="Profile image url"
-                        value={profileUrl}
-                        onChangeText={(text) => setProfileUrl(text)}
-                        className='bg-neutral-100 rounded-lg border border-neutral-100 focus:border-primary-500'
-                    />
-                   
+                <InputComponent value={email} setValue={setEmail} placeholder='Enter your email...' />
+                <InputComponent value={password} setValue={setPassword}  placeholder='Password' secureTextEntry={true}/>
+                <InputComponent value={username} setValue={setUsername} placeholder='Username' />
+                <InputComponent value={profileUrl} setValue={setProfileUrl}  placeholder='Profile image url'/>
+               
               </View>
               {
                 loading ? (

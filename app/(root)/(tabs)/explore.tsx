@@ -1,11 +1,10 @@
-import { Card, FeaturedCard } from "@/components/Cards";
+import { Card} from "@/components/Cards";
 import Filters from "@/components/Filters";
 import NoResult from "@/components/NoResult";
 import Search from "@/components/Search";
 import icons from "@/constants/icons";
-import images from "@/constants/images";
 import { router } from "expo-router";
-import { ActivityIndicator, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Explore() {
   
